@@ -7,6 +7,8 @@ let showMoreButton = document.querySelector("#show-more-button");
 let showError = document.querySelector("#show-error");
 let showLoading = document.querySelector("#show-loading");
 
+
+searchInput.setAttribute("autocomplete", "off");
 page = 1;
 if (page === 1) {
   showMoreButton.style.display = "none";
