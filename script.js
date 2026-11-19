@@ -4,8 +4,12 @@
 let searchInput = document.querySelector("#search-input");
 let searchForm = document.querySelector("#search-form");
 let searchResults = document.querySelector("#search-results");
+let showMoreButton = document.querySelector("#show-more-button")
 
 page = 1;
+ if (page === 1) {
+        showMoreButton.style.display = "none"
+    }
 
 searchForm.addEventListener("submit" , (evt)=>{
     evt.preventDefault();
@@ -19,6 +23,7 @@ async function showImage(){
     let redableDATA = await URL.json();    
     const realDATA = redableDATA.results;  // now it an array so we can get data from here 
 
+
     //----------- creating element by dynamically ---------------
     realDATA.map((para)=>{
         let searchResultPARENT = document.createElement("div");
@@ -28,22 +33,28 @@ async function showImage(){
         img.src = para.urls.small;   
         img.alt = "image";
 
-        let a = document.creatElement("a");
+        let a = document.createElement("a");
         a.href = para.links.html;
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = para.alt_description;
 
-        
+        searchResultPARENT.appendChild(img);
+        searchResultPARENT.appendChild(a);
 
-        
+        searchResults.append(searchResultPARENT);
         
     })
 
-    
-    
+    page++;
+    if (page > 1) {
+     showMoreButton.style.display = "block"
+    }
 }
 
+showMoreButton.addEventListener("click" , ()=>{
+    showImage();
+})
 
 
 
