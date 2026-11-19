@@ -7,7 +7,6 @@ let showMoreButton = document.querySelector("#show-more-button");
 let showError = document.querySelector("#show-error");
 let showLoading = document.querySelector("#show-loading");
 
-
 searchInput.setAttribute("autocomplete", "off");
 page = 1;
 if (page === 1) {
@@ -29,7 +28,7 @@ async function showImage() {
       `https://api.unsplash.com/search/photos?page=${page}&query=${InputValue}&client_id=${accessKey}`,
     );
 
-//----------handling error-------------
+    //----------handling error-------------
 
     if (!URL.ok) {
       throw new Error(`HTTP Error: ${response.status}`);
@@ -38,7 +37,7 @@ async function showImage() {
     let redableDATA = await URL.json();
     const realDATA = redableDATA.results; // now it an array so we can get data from here
 
-//----------- creating element by dynamically ---------------
+    //----------- creating element by dynamically ---------------
     realDATA.map((para) => {
       let searchResultPARENT = document.createElement("div");
       searchResultPARENT.classList.add("search-result");
@@ -59,16 +58,19 @@ async function showImage() {
       searchResults.append(searchResultPARENT);
     });
 
-    showLoading.style.display = "none"
-
+    showLoading.style.display = "none";
 
     page++;
-    if (page > 1) {
-      showMoreButton.style.display = "block";
+    if (searchInput.value.trim() === "") {
+      page = 1;
+      if (page > 1) {
+        console.log(page);
+        showMoreButton.style.display = "block";
+      }
     }
   } catch (error) {
-    showError.textContent = error.message
-    showLoading.style.display = "none"
+    showError.textContent = error.message;
+    showLoading.style.display = "none";
   }
 }
 
