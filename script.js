@@ -5,7 +5,7 @@ let searchForm = document.querySelector("#search-form");
 let searchResults = document.querySelector("#search-results");
 let showMoreButton = document.querySelector("#show-more-button");
 let showError = document.querySelector("#show-error");
-let showImage = document.querySelector("#show-Image");
+let showLoading = document.querySelector("#show-loading");
 
 page = 1;
 if (page === 1) {
@@ -15,7 +15,9 @@ if (page === 1) {
 searchForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   showImage();
-
+  showLoading.style.display = "block";
+  showError.textContent = "";
+  searchResults.innerHTML = "";
 });
 
 async function showImage() {
@@ -27,7 +29,7 @@ async function showImage() {
 
 //----------handling error-------------
 
-    if (!response.ok) {
+    if (!URL.ok) {
       throw new Error(`HTTP Error: ${response.status}`);
     }
 
@@ -55,12 +57,16 @@ async function showImage() {
       searchResults.append(searchResultPARENT);
     });
 
+    showLoading.style.display = "none"
+
+
     page++;
     if (page > 1) {
       showMoreButton.style.display = "block";
     }
   } catch (error) {
     showError.textContent = error.message
+    showLoading.style.display = "none"
   }
 }
 

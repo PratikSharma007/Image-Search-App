@@ -117,8 +117,9 @@ form {
     text-align: center;
 }
 
- #show-Image{
+ #show-loading{
     text-align: center;
+    display: none;
 }
 
 @media (max-width: 768px) {
