@@ -1,0 +1,49 @@
+/* sabse pahele jo input ayega uska value mujhe bhejna hoga url mai taki api request bhej sake,,, jo request ayega usko dom manipulation se screen mai show karna hai ,,,, uske baad showmore button ka scean handle karna hai,,, uske baad page mai loading wagera chota mota kaam handle karna hai */
+
+
+let searchInput = document.querySelector("#search-input");
+let searchForm = document.querySelector("#search-form");
+let searchResults = document.querySelector("#search-results");
+
+page = 1;
+
+searchForm.addEventListener("submit" , (evt)=>{
+    evt.preventDefault();
+    showImage();
+});
+
+async function showImage(){
+    let InputValue = searchInput.value;
+    const URL = await fetch(`https://api.unsplash.com/search/photos?page=${page}&query=${InputValue}&client_id=${accessKey}`);
+
+    let redableDATA = await URL.json();    
+    const realDATA = redableDATA.results;  // now it an array so we can get data from here 
+
+    //----------- creating element by dynamically ---------------
+    realDATA.map((para)=>{
+        let searchResultPARENT = document.createElement("div");
+        searchResultPARENT.classList.add("search-result");
+
+        let img = document.createElement("img");
+        img.src = para.urls.small;   
+        img.alt = "image";
+
+        let a = document.creatElement("a");
+        a.href = para.links.html;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = para.alt_description;
+
+        
+
+        
+        
+    })
+
+    
+    
+}
+
+
+
+
